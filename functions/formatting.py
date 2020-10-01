@@ -1,4 +1,5 @@
 import datetime
+import re
 
 def convert_12_to_24(time, period):
     x = time.split(":")
@@ -36,7 +37,26 @@ def separate_categories(line):
 
     return [date, time, sender, message]
 
+class ChatData():
+    def __init__(self, path):
+        path = path.replace("\\","/")
+        f = open(path,encoding="utf-8").readlines()
 
-#print(separate_categories("2/11/19, 11:13 am - Amar: U want eat macs l8er"))
+        data = []
+        queue = f[0].rstrip()
+        for i in range(1,len(f)):
+
+            line = f[i].rstrip()
+            if re.search(r'^[0-9]+/[0-9]+/[0-9]+',line):
+                data.append(queue)
+                queue = line
+            else:
+                print(i)
+                queue = queue + line
+
+        self.data = data
+
+            
+        
 
 
