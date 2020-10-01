@@ -37,6 +37,21 @@ def separate_categories(line):
 
     return [date, time, sender, message]
 
+def message_valid(data):
+    if type(data) == list:
+        message = data[3]
+    if type(data) == str:
+        message = data
+    
+    if re.search(r'^[a-z-A-Z0-9!@#$%^&*(),.?":{}|<>\w\s]*$', message):
+        return True
+    else:
+        return False
+
+    
+
+
+
 class ChatData():
     def __init__(self, path):
         path = path.replace("\\","/")
@@ -48,8 +63,10 @@ class ChatData():
 
             line = f[i].rstrip()
             if re.search(r'^[0-9]+/[0-9]+/[0-9]+',line):
-                data.append(separate_categories(queue))
                 queue = line
+                line = separate_categories(queue)
+                if message_valid(line):
+                    data.append(line)
             else:
                 queue = queue + line
 
