@@ -6,6 +6,14 @@ Roadmap:
 (4. Party!)
 
 1. Data Cleaning & Formatting
+
+A class, ChatData, will be used to store data of the chat 
+in the form of a Pandas DataFrame for more functionality.
+Data will be stored in the ChatData().data attribute. The
+object will contain search methods to return filtered searches
+for later processing by the ProcessedChatData() Class.
+
+
 - Two types of lines:
     - Normal Lines
       (25/6/18, 6:49 pm - egg: rlly)
@@ -15,26 +23,41 @@ Roadmap:
        sam vpd
        seems to be exco's pic)
     
+- Class ChatData:
+    - Attributes:
+      - data
+    - Methods:
+      - search_day
+      - search_time
+      - search_sender
+      - search_message
+
 - Flow of Data Cleaning & Formatting:
-    - Read Data and split lines into elements
-    - Input Line
-    - Check for Multiple Lines & Merge into Normal Line
-    - Check for Emoji & Remove Emojis
-    - Separate Data into Categories
-    - Append to Main List
-    - Repeat last 5 steps for all elements of Data
+    - x = ChatData("path\to\chat\file.txt")
+    - Read file and split into lines using readlines()
+    - Create empty Data array
+    - For every line:
+        - Check for Multiple Lines & Merge into Normal Line
+        - Separate line into Categories (day, time, sender, message)
+        - Check for Emoji/Ommited Message and Remove
+        - Add to Data
+    - Make Data a Pandas DataFrame object
+    - Store in ChatData().data
 
-- Check for Multiple Lines & Merge into Normal Line:
-    - Get Line
-    - Identify Line as Normal Line
-    - Get next line and check if next line is part of Multiple Lines
-    - Append to initial Line if True, else Send Line to next step of Formatting
-    - Repeat last two steps until next line is Normal Line
-    - Send final Line to next step of Formatting
+- Check for Emoji/Ommited Message and Remove:
+    - Input: array
 
-- Check for Emoji & Remove Emojis:
+    - Array Format:
+    [int day, str time, str sender, str message]
+
+    - Store message
+    - Return False if message = "<Media omitted>"
+    - Return False if message contains non-alpha-numeric character
+    - Return True if message only contains a-z, A-Z, 0-9 and special characters (", ', \, /, $, @, etc.)
 
 - Separate Data into Categories:
+    - Input: String
+
     - Line Format:
     (d)d/(m)m/yy, (h)h:mm (a/p)m - (sender): (message)
 

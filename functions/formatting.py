@@ -1,5 +1,6 @@
 import datetime
 import re
+import pandas as pd
 
 def convert_12_to_24(time, period):
     x = time.split(":")
@@ -21,7 +22,6 @@ def date_to_day_number(date):
     day = x[0]
     month = x[1]
     year = "20" + x[2]
-
     date = datetime.datetime(int(year),int(month),int(day))
     day_number = (date - datetime.datetime(date.year, 1, 1)).days
 
@@ -40,7 +40,7 @@ def separate_categories(line):
 class ChatData():
     def __init__(self, path):
         path = path.replace("\\","/")
-        f = open(path,encoding="utf-8").readlines()
+        f = open(path,encoding="utf-8-sig").readlines()
 
         data = []
         queue = f[0].rstrip()
@@ -48,14 +48,13 @@ class ChatData():
 
             line = f[i].rstrip()
             if re.search(r'^[0-9]+/[0-9]+/[0-9]+',line):
-                data.append(queue)
+                data.append(separate_categories(queue))
                 queue = line
             else:
-                print(i)
                 queue = queue + line
 
+        data = pd.DataFrame(data,columns=["Day","Time","Sender","Message"])
         self.data = data
-
             
         
 
