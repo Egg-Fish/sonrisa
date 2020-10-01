@@ -43,7 +43,9 @@ def message_valid(data):
     if type(data) == str:
         message = data
     
-    if re.search(r'^[a-z-A-Z0-9!@#$%^&*(),.?":{}|<>\w\s]*$', message):
+    if (re.search(r'^[a-z-A-Z0-9!@#$%^&*(),.?":{}|<>\w\s]*$',message) and
+        message != "<Media omitted>"):
+        # message only contains aplanum + special char and message is not <Media omitted>
         return True
     else:
         return False
