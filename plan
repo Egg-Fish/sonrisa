@@ -1,0 +1,48 @@
+Roadmap:
+
+1. Data Cleaning & Formatting
+2. Data Processing
+3. Data Visualisation
+(4. Party!)
+
+1. Data Cleaning & Formatting
+- Two types of lines:
+    - Normal Lines
+      (25/6/18, 6:49 pm - egg: rlly)
+    - Multiple Lines
+      (4/5/20, 3:04 pm - egg: ty pres
+       east vpa
+       sam vpd
+       seems to be exco's pic)
+    
+- Flow of Data Cleaning & Formatting:
+    - Read Data and split lines into elements
+    - Input Line
+    - Check for Multiple Lines & Merge into Normal Line
+    - Check for Emoji & Remove Emojis
+    - Separate Data into Categories
+    - Append to Main List
+    - Repeat last 5 steps for all elements of Data
+
+- Check for Multiple Lines & Merge into Normal Line:
+    - Get Line
+    - Identify Line as Normal Line
+    - Get next line and check if next line is part of Multiple Lines
+    - Append to initial Line if True, else Send Line to next step of Formatting
+    - Repeat last two steps until next line is Normal Line
+    - Send final Line to next step of Formatting
+
+- Check for Emoji & Remove Emojis:
+
+- Separate Data into Categories:
+    - Line Format:
+    (d)d/(m)m/yy, (h)h:mm (a/p)m - (sender): (message)
+
+    - Split According to " "
+    (["12/34/56,", "78:90", "pm", "-", "egg:", "yummy!"])
+
+    - Remove comma from date
+    - Convert date to days since Jan 1, with Jan 1 as Day 0
+    - Convert 12-hour time to 24-hour time
+    - Remove colon from sender
+    - Do not add in the "-" element
