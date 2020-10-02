@@ -43,8 +43,7 @@ def message_valid(data):
     if type(data) == str:
         message = data
     
-    if (re.search(r'^[a-z-A-Z0-9!@#$%^&*(),.?"\':{}|<>\w\s]*$',message) and
-        message != "<Media omitted>" and
+    if (message != "<Media omitted>" and
         message != "You deleted this message" and
         message != "This message was deleted"):
         # validates message
@@ -52,6 +51,23 @@ def message_valid(data):
     else:
         return False
 
+def strip_emoji(data):
+    if type(data) == list:
+        message = data[3]
+    if type(data) == str:
+        message = data
+
+    final = ""
+    for char in message:
+        if re.search(r'[a-z-A-Z0-9!@#$%^&*(),.?"\':{}|<>\w\s]{1}', char):
+            final = final + char
+
+    if type(data) == list:
+        data[3] = final.strip()
+        return data
+        
+    if type(data) == str:
+        return final.strip()
     
 
 

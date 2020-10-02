@@ -1,6 +1,4 @@
-from sonrisa.functions.formatting import ChatData
+import sonrisa.functions.formatting
 
-path = "C:\\Users\\Egie\\Desktop\\Projects\\SonrisaProjects\\Text\\Shaun.txt"
+path = "C:\\Users\\Egie\\Desktop\\Projects\\SonrisaProjects\\Text\\Amar.txt"
 
-x = ChatData(path)
-print(x.data)
