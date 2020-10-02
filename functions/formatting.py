@@ -65,7 +65,7 @@ def strip_emoji(data):
     if type(data) == list:
         data[3] = final.strip()
         return data
-        
+
     if type(data) == str:
         return final.strip()
     
@@ -86,6 +86,7 @@ class ChatData():
                 queue = line
                 line = separate_categories(queue)
                 if message_valid(line):
+                    line = strip_emoji(line)
                     data.append(line)
             else:
                 queue = queue + line
