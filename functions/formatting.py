@@ -15,6 +15,10 @@ def convert_12_to_24(time, period):
 
     if period == "pm" and hour != 12:
         hour = hour + 12
+
+    if period == "am" and hour == 12:
+        hour = 0
+
     return str("0" + str(hour) + minute)[-4:] # extra 0 for 3 digit, AM timings (e.g 2:12 am -> 0212)
 
 def date_to_day_number(date):
