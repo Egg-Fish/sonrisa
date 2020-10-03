@@ -2,4 +2,4 @@ from sonrisa.functions import formatting
 
 path = "C:\\Users\\Egie\\Desktop\\Projects\\SonrisaProjects\\Text\\Amar.txt"
 
-x = formatting.ChatData(path)
+data = formatting.ChatData(path)
