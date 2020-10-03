@@ -57,16 +57,74 @@ def test_separate_categories():
 
         test = formatting.separate_categories(case[0])
         if test != case[1]:
-            print("test_date_to_day_number():")
+            print("test_separate_categories():")
             print("Case {}: {} -> {}".format(i+1,case[0],case[1]))
             print("Result: {}".format(test))
             print("Status: FAIL\n")
 
 def test_message_valid():
-    pass
+    cases = [
+        [[183, '0808', 'egg', '<Media omitted>'], False],
+        [[183, '0808', 'egg', 'Media omitted>'], True],
+        [[183, '0808', 'egg', '<Media omitted'], True],
+        [[183, '0808', 'egg', 'Media omitted'], True],
+
+        [[199, '2325', 'Amar', 'This message was deleted'], False],
+        [[199, '2325', 'Amar', 'this message was deleted'], True],
+        [[199, '2325', 'Amar', 'This Message was Deleted'], True],
+        [[199, '2325', 'Amar', 'this message was Deleted'], True],
+
+        [[199, '1641', 'egg', 'You deleted this message'], False],
+        [[199, '1641', 'egg', 'You Deleted this message'], True],
+        [[199, '1641', 'egg', 'you deleted this message'], True],
+        [[199, '1641', 'egg', 'You deleted this Message'], True],
+
+        ['<Media omitted>', False],
+        ['Media omitted>', True],
+        ['<Media omitted', True],
+        ['Media omitted', True],
+
+        ['This message was deleted', False],
+        ['this message was deleted', True],
+        ['This Message was Deleted', True],
+        ['this message was Deleted', True],
+
+        ['You deleted this message', False],
+        ['You Deleted this message', True],
+        ['you deleted this message', True],
+        ['You deleted this Message', True]
+    ]
+
+    for i in range(len(cases)):
+        case = cases[i]
+
+        test = formatting.message_valid(case[0])
+        if test != case[1]:
+            print("test_message_valid():")
+            print("Case {}: {} -> {}".format(i+1,case[0],case[1]))
+            print("Result: {}".format(test))
+            print("Status: FAIL\n")
 
 def test_strip_emoji():
-    pass
+    cases = [
+        [[0, '0000', 'name', '🤯'], [0, '0000', 'name', '']],
+        [[0, '0000', 'name', 'yes 😪'], [0, '0000', 'name', 'yes']],
+        [[0, '0000', 'name', 'yes🤯'], [0, '0000', 'name', 'yes']],
+        [[0, '0000', 'name', '🤯yes😪'], [0, '0000', 'name', 'yes']],
+        [[0, '0000', 'name', ' 😪 yes 🤯 '], [0, '0000', 'name', 'yes']],
+        [[0, '0000', 'name', ' 🤯yes😪 '], [0, '0000', 'name', 'yes']],
+    ]
+
+    for i in range(len(cases)):
+        case = cases[i]
+
+        test = formatting.strip_emoji(case[0])
+        print(case, test)
+        if test != case[1]:
+            print("test_strip_emoji():")
+            print("Case {}: {} -> {}".format(i+1,case[0],case[1]))
+            print("Result: {}".format(test))
+            print("Status: FAIL\n")
 
 def test_formatting():
     test_convert_12_to_24()
