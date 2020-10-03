@@ -45,7 +45,22 @@ def test_date_to_day_number():
             print("Status: FAIL\n")
 
 def test_separate_categories():
-    pass
+    cases = [
+        ["12/9/20, 2:18 pm - egg: sure haha", [255, '1418', 'egg', 'sure haha']],
+        ["19/7/20, 12:04 am - egg: i alw tot", [200, '0004', 'egg', 'i alw tot']],
+        ["19/9/20, 12:11 pm - Shaun: Can :)", [262, '1211', 'Shaun', 'Can :)']],
+        ["1/1/20, 12:00 am - name:  !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",[0, '0000', 'name', '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~']]
+    ]
+
+    for i in range(len(cases)):
+        case = cases[i]
+
+        test = formatting.separate_categories(case[0])
+        if test != case[1]:
+            print("test_date_to_day_number():")
+            print("Case {}: {} -> {}".format(i+1,case[0],case[1]))
+            print("Result: {}".format(test))
+            print("Status: FAIL\n")
 
 def test_message_valid():
     pass
