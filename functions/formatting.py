@@ -105,6 +105,35 @@ class ChatData():
         data = pd.DataFrame(data,columns=["Day","Time","Sender","Message"])
         self.data = data
 
+    def search(self, 
+            date = None, 
+            time = None, 
+            sender = None, 
+            message = None):
+        
+        if type(date) == str:
+            date = date_to_day_number(date)
+
+        data = self.data
+        
+
+        if date != None:
+            data = data.loc[data["Day"] == date]
+
+        if time != None:
+            data = data.loc[data["Time"] == time]
+            
+        if sender != None:
+            data = data.loc[data["Sender"] == sender]
+        
+        if message != None:
+            data = data.loc[data["Message"] == message]
+        
+        return data
+
+
+
+
             
         
 

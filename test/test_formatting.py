@@ -119,7 +119,6 @@ def test_strip_emoji():
         case = cases[i]
 
         test = formatting.strip_emoji(case[0])
-        print(case, test)
         if test != case[1]:
             print("test_strip_emoji():")
             print("Case {}: {} -> {}".format(i+1,case[0],case[1]))

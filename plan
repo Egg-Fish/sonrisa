@@ -11,7 +11,8 @@ A class, ChatData, will be used to store data of the chat
 in the form of a Pandas DataFrame for more functionality.
 Data will be stored in the ChatData().data attribute. The
 object will contain search methods to return filtered searches
-for later processing by the ProcessedChatData() Class.
+for later processing by the ProcessedChatData() Class. Senders
+will also be stored in ChatData().senders attribute.
 
 
 - Two types of lines:
@@ -25,14 +26,11 @@ for later processing by the ProcessedChatData() Class.
     
 - Class ChatData:
     - Attributes:
-      - data
-      - senders
+      - data (Pandas DataFrame)
+      - senders (Dictionary)
       
     - Methods:
-      - search_day
-      - search_time
-      - search_sender
-      - search_message
+      - search()
 
 - Flow of Data Cleaning & Formatting:
     - x = ChatData("path\to\chat\file.txt")
@@ -71,3 +69,7 @@ for later processing by the ProcessedChatData() Class.
     - Convert 12-hour time to 24-hour time
     - Remove colon from sender
     - Do not add in the "-" element
+
+
+
+2. Data Processing
