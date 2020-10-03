@@ -1,6 +1,7 @@
 import datetime
 import re
 import pandas as pd
+from collections import Counter
 
 def convert_12_to_24(time, period):
     x = time.split(":")
@@ -49,8 +50,9 @@ def message_valid(data):
     
     if (message != "<Media omitted>" and
         message != "You deleted this message" and
-        message != "This message was deleted"):
-        # validates message
+        message != "This message was deleted" and
+        re.search(r'security code changed', message) == None):
+        # these are auto-generated messages by WhatsApp
         return True
     else:
         return False
@@ -95,8 +97,14 @@ class ChatData():
             else:
                 queue = queue + line
 
+        senders = [x[2] for x in data]
+        senders = Counter(senders)
+
+        self.senders = dict(senders)
+
         data = pd.DataFrame(data,columns=["Day","Time","Sender","Message"])
         self.data = data
+
             
         
 

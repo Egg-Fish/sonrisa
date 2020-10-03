@@ -26,6 +26,8 @@ for later processing by the ProcessedChatData() Class.
 - Class ChatData:
     - Attributes:
       - data
+      - senders
+      
     - Methods:
       - search_day
       - search_time
