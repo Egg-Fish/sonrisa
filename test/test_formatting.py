@@ -46,10 +46,10 @@ def test_date_to_day_number():
 
 def test_separate_categories():
     cases = [
-        ["12/9/20, 2:18 pm - egg: sure haha", [255, '1418', 'egg', 'sure haha']],
-        ["19/7/20, 12:04 am - egg: i alw tot", [200, '0004', 'egg', 'i alw tot']],
-        ["19/9/20, 12:11 pm - Shaun: Can :)", [262, '1211', 'Shaun', 'Can :)']],
-        ["1/1/20, 12:00 am - name:  !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",[0, '0000', 'name', '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~']]
+        ["12/9/20, 2:18 pm - egg: sure haha", [255, '2020', '1418', 'egg', 'sure haha']],
+        ["19/7/19, 12:04 am - egg: i alw tot", [199, '2019', '0004', 'egg', 'i alw tot']],
+        ["19/9/18, 12:11 pm - Shaun: Can :)", [261, '2018', '1211', 'Shaun', 'Can :)']],
+        ["1/1/20, 12:00 am - name:  !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",[0, '2020', '0000', 'name', '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~']]
     ]
 
     for i in range(len(cases)):
@@ -64,20 +64,20 @@ def test_separate_categories():
 
 def test_message_valid():
     cases = [
-        [[183, '0808', 'egg', '<Media omitted>'], False],
-        [[183, '0808', 'egg', 'Media omitted>'], True],
-        [[183, '0808', 'egg', '<Media omitted'], True],
-        [[183, '0808', 'egg', 'Media omitted'], True],
+        [[183, '2020', '0808', 'egg', '<Media omitted>'], False],
+        [[183, '2020', '0808', 'egg', 'Media omitted>'], True],
+        [[183, '2020', '0808', 'egg', '<Media omitted'], True],
+        [[183, '2020', '0808', 'egg', 'Media omitted'], True],
 
-        [[199, '2325', 'Amar', 'This message was deleted'], False],
-        [[199, '2325', 'Amar', 'this message was deleted'], True],
-        [[199, '2325', 'Amar', 'This Message was Deleted'], True],
-        [[199, '2325', 'Amar', 'this message was Deleted'], True],
+        [[199, '2020', '2325', 'Amar', 'This message was deleted'], False],
+        [[199, '2020', '2325', 'Amar', 'this message was deleted'], True],
+        [[199, '2020', '2325', 'Amar', 'This Message was Deleted'], True],
+        [[199, '2020', '2325', 'Amar', 'this message was Deleted'], True],
 
-        [[199, '1641', 'egg', 'You deleted this message'], False],
-        [[199, '1641', 'egg', 'You Deleted this message'], True],
-        [[199, '1641', 'egg', 'you deleted this message'], True],
-        [[199, '1641', 'egg', 'You deleted this Message'], True],
+        [[199, '2020', '1641', 'egg', 'You deleted this message'], False],
+        [[199, '2020', '1641', 'egg', 'You Deleted this message'], True],
+        [[199, '2020', '1641', 'egg', 'you deleted this message'], True],
+        [[199, '2020', '1641', 'egg', 'You deleted this Message'], True],
 
         ['<Media omitted>', False],
         ['Media omitted>', True],
@@ -107,12 +107,12 @@ def test_message_valid():
 
 def test_strip_emoji():
     cases = [
-        [[0, '0000', 'name', '🤯'], [0, '0000', 'name', '']],
-        [[0, '0000', 'name', 'yes 😪'], [0, '0000', 'name', 'yes']],
-        [[0, '0000', 'name', 'yes🤯'], [0, '0000', 'name', 'yes']],
-        [[0, '0000', 'name', '🤯yes😪'], [0, '0000', 'name', 'yes']],
-        [[0, '0000', 'name', ' 😪 yes 🤯 '], [0, '0000', 'name', 'yes']],
-        [[0, '0000', 'name', ' 🤯yes😪 '], [0, '0000', 'name', 'yes']],
+        [[0, '2020', '0000', 'name', '🤯'], [0, '2020', '0000', 'name', '']],
+        [[0, '2020', '0000', 'name', 'yes 😪'], [0, '2020', '0000', 'name', 'yes']],
+        [[0, '2020', '0000', 'name', 'yes🤯'], [0, '2020', '0000', 'name', 'yes']],
+        [[0, '2020', '0000', 'name', '🤯yes😪'], [0, '2020', '0000', 'name', 'yes']],
+        [[0, '2020', '0000', 'name', ' 😪 yes 🤯 '], [0, '2020', '0000', 'name', 'yes']],
+        [[0, '2020', '0000', 'name', ' 🤯yes😪 '], [0, '2020', '0000', 'name', 'yes']],
     ]
 
     for i in range(len(cases)):

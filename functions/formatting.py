@@ -36,15 +36,16 @@ def separate_categories(line):
     line = line.split(maxsplit=5)
     date = line[0][:-1]
     date = date_to_day_number(date)
+    year = "20" + line[0][-3:-1]
     time = convert_12_to_24(line[1],line[2])
     sender = line[4][:-1]
     message = line[5]
 
-    return [date, time, sender, message]
+    return [date, year, time, sender, message]
 
 def message_valid(data):
     if type(data) == list:
-        message = data[3]
+        message = data[4]
     if type(data) == str:
         message = data
     
@@ -59,7 +60,7 @@ def message_valid(data):
 
 def strip_emoji(data):
     if type(data) == list:
-        message = data[3]
+        message = data[4]
     if type(data) == str:
         message = data
 
@@ -69,7 +70,7 @@ def strip_emoji(data):
             final = final + char
 
     if type(data) == list:
-        data[3] = final.strip()
+        data[4] = final.strip()
         return data
 
     if type(data) == str:
@@ -97,16 +98,17 @@ class ChatData():
             else:
                 queue = queue + line
 
-        senders = [x[2] for x in data]
+        senders = [x[3] for x in data]
         senders = Counter(senders)
 
         self.senders = dict(senders)
 
-        data = pd.DataFrame(data,columns=["Day","Time","Sender","Message"])
+        data = pd.DataFrame(data,columns=["Day", "Year", "Time", "Sender", "Message"])
         self.data = data
 
     def search(self, 
-            date = None, 
+            date = None,
+            year = None, 
             time = None, 
             sender = None, 
             message = None):
@@ -119,6 +121,9 @@ class ChatData():
 
         if date != None:
             data = data.loc[data["Day"] == date]
+
+        if year != None:
+            data = data.loc[data["Year"] == year]
 
         if time != None:
             data = data.loc[data["Time"] == time]
