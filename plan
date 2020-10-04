@@ -70,6 +70,8 @@ will also be stored in ChatData().senders attribute.
     - Remove colon from sender
     - Do not add in the "-" element
 
+    - Return [int Day, str Year, str Time, str Sender, str Message]
+
 
 
 2. Data Processing
