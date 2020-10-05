@@ -94,7 +94,8 @@ class ChatData():
                 line = separate_categories(queue)
                 if message_valid(line):
                     line = strip_emoji(line)
-                    data.append(line)
+                    if line[4].strip():
+                        data.append(line)
             else:
                 queue = queue + line
 
