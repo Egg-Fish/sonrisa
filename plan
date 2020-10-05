@@ -75,3 +75,9 @@ will also be stored in ChatData().senders attribute.
 
 
 2. Data Processing
+
+processing.py will contain functions for:
+  - Frequency of a specific message
+  - Total messages of a specific sender
+  - Average messages per day of a specific user
+  - Frequency of messages based on time
