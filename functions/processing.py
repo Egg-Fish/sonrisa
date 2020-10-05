@@ -26,3 +26,5 @@ def message_frequency(df, n = 0, message = None):
 
     return data
 
+def total_messages_by_sender():
+    pass

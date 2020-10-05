@@ -33,13 +33,21 @@ def date_to_day_number(date):
     return day_number
 
 def separate_categories(line):
-    line = line.split(maxsplit=5)
+    line = line.split(maxsplit=4)
     date = line[0][:-1]
     date = date_to_day_number(date)
     year = "20" + line[0][-3:-1]
     time = convert_12_to_24(line[1],line[2])
-    sender = line[4][:-1]
-    message = line[5]
+    
+    sender_and_msg = line[4].split(":",maxsplit=1) # Message can contain ":" inside
+    #print(sender_and_msg)
+    if len(sender_and_msg) == 1:
+        sender_and_msg = sender_and_msg[0].split(maxsplit=1)
+        
+
+    sender = sender_and_msg[0].strip()
+    message = sender_and_msg[1].strip()
+
 
     return [date, year, time, sender, message]
 
@@ -52,7 +60,12 @@ def message_valid(data):
     if (message != "<Media omitted>" and
         message != "You deleted this message" and
         message != "This message was deleted" and
-        re.search(r'security code changed', message) == None):
+        re.search(r'security code changed', message) == None and
+        re.search(r'changed the subject', message) == None and
+        re.search(r'changed the group description', message) == None and
+        re.search(r'Messages and calls are end-to-end encrypted.', message) == None and
+        re.search(r'created group', message) == None and
+        re.search(r'added you', message) == None ):
         # these are auto-generated messages by WhatsApp
         return True
     else:
@@ -89,15 +102,23 @@ class ChatData():
         for i in range(1,len(f)):
 
             line = f[i].rstrip()
-            if re.search(r'^[0-9]+/[0-9]+/[0-9]+',line):
+            if re.search(r'^[0-9]+/[0-9]+/[0-9]+', line):
+                p = separate_categories(queue)
+                if message_valid(p):
+                    p = strip_emoji(p)
+                    if p[4].strip():
+                        data.append(p)
+                    
                 queue = line
-                line = separate_categories(queue)
-                if message_valid(line):
-                    line = strip_emoji(line)
-                    if line[4].strip():
-                        data.append(line)
             else:
-                queue = queue + line
+                queue = queue + " " + line
+
+        p = separate_categories(queue)
+        if message_valid(p):
+            p = strip_emoji(p)
+            if p[4].strip():
+                data.append(p)
+        
 
         senders = [x[3] for x in data]
         senders = Counter(senders)
@@ -133,7 +154,9 @@ class ChatData():
             data = data.loc[data["Sender"] == sender]
         
         if message != None:
-            data = data.loc[data["Message"] == message]
+            data = data.loc[ [re.search(message, x) != None for x in data["Message"]] ]
+            # bool array made by for .. in .. genrator to check if message is present as a 
+            # substring in each message of Data. JIC I forget what this is for :P
         
         return data
 
