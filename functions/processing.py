@@ -3,11 +3,11 @@ import pandas as pd
 import numpy as np
 
 def message_frequency(df, n = 0, message = None):
-    data = df.data["Message"].values
+    data = df["Message"].values
     words= []
 
-    for message in data:
-        words.extend([word for word in message.split()])
+    for m in data:
+        words.extend([word for word in m.split()])
 
     data = pd.Series(words).value_counts()
 
