@@ -1,4 +1,4 @@
-# Chat thing I builtin 1 day
+# THIS IS THE TESTING BRANCH
 Usage: python -m foldername [path]
 
 Unit test: python -m foldername.test
