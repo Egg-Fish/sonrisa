@@ -9,7 +9,7 @@ def main(path):
     # if you see this, you are free to test
 
     ChatData = formatting.ChatData(path)
-    print(ChatData.data)
+    print(ChatData.search(message="HA"))
 
 if __name__ == "__main__":
     main(sys.argv[1])
