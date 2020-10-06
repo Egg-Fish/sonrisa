@@ -95,6 +95,7 @@ def strip_emoji(data):
 class ChatData():
     def __init__(self, path):
         path = path.replace("\\","/")
+        print(path)
         f = open(path,encoding="utf-8-sig").readlines()
 
         data = []
