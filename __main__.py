@@ -7,7 +7,7 @@ import sys
 def main(path):
 
     ChatData = formatting.ChatData(path)
-    print(ChatData.data)
+    print(ChatData.senders)
 
 if __name__ == "__main__":
     main(sys.argv[1])
