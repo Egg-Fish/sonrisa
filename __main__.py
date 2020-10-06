@@ -2,11 +2,13 @@ from sonrisa.functions import formatting, processing
 import matplotlib.pyplot as plt
 import numpy as np
 
-path = "C:\\Users\\Egie\\Desktop\\Projects\\SonrisaProjects\\Text\\C1.txt"
+import sys
 
-data = formatting.ChatData(path)
+def main(path):
 
-q = processing.message_frequency(data.data, message = ["simp","lol"])
-print(q)
-q.plot("pie")
-plt.show()
+    ChatData = formatting.ChatData(path)
+    print(ChatData.data)
+
+if __name__ == "__main__":
+    main(sys.argv[1])
+
