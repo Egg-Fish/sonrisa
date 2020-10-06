@@ -9,7 +9,9 @@ def main(path):
     # if you see this, you are free to test
 
     ChatData = formatting.ChatData(path)
-    print(ChatData.search(date=294))
+    p = processing.message_frequency(ChatData.data,n=20)
+    p.plot("bar")
+    plt.show()
 
 if __name__ == "__main__":
     main(sys.argv[1])
