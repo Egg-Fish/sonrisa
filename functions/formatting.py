@@ -54,18 +54,22 @@ def separate_categories(line):
 def message_valid(data):
     if type(data) == list:
         message = data[4]
+        sender = data[3]
     if type(data) == str:
         message = data
+        sender = "egg"
     
     if (message != "<Media omitted>" and
         message != "You deleted this message" and
         message != "This message was deleted" and
+        sender != "Messages" and
         re.search(r'security code changed', message) == None and
         re.search(r'changed the subject', message) == None and
         re.search(r'changed the group description', message) == None and
         re.search(r'Messages and calls are end-to-end encrypted.', message) == None and
         re.search(r'created group', message) == None and
-        re.search(r'added you', message) == None ):
+        re.search(r'added you', message) == None and
+        re.search(r'^\d\d\d\d \d\d\d\d added [a-zA-Z0-9\w+()]+$', message) == None):
         # these are auto-generated messages by WhatsApp
         return True
     else:
