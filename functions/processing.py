@@ -26,5 +26,11 @@ def message_frequency(df, n = 0, message = None):
 
     return data
 
-def total_messages_by_sender():
-    pass
+def total_messages_by_sender(df, sender = None):
+    if type(sender) == list:
+        return df.loc[np.isin(df["Sender"], sender), "Sender"].value_counts()
+    
+    elif type(sender) == str:
+        return df.loc[df["Sender"] == sender, "Sender"].value_counts()
+
+    return df["Sender"].value_counts()
