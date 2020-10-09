@@ -105,6 +105,11 @@ def strip_emoji(data):
 
 class ChatData():
     def __init__(self, path):
+
+        self.data = None
+        self.senders = None
+        self.chat_name = None
+
         path = path.replace("\\","/")
         
         f = open(path,encoding="utf-8-sig").readlines()
@@ -139,6 +144,10 @@ class ChatData():
 
         senders = [x[3] for x in data]
         senders = Counter(senders)
+        if len(senders.keys()) == 2:
+            chat_name = list(senders.keys())
+            chat_name.remove("egg")
+            self.chat_name = chat_name[0]
 
         self.senders = dict(senders)
 
