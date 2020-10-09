@@ -155,20 +155,20 @@ class ChatData():
         self.data = data
 
     def search(self, 
-            date = None,
+            day = None,
             year = None, 
             time = None, 
             sender = None, 
             message = None):
         
-        if type(date) == str:
-            date = date_to_day_number(date)
+        if type(day) == str:
+            day = date_to_day_number(day)
 
         data = self.data
         
 
-        if date != None:
-            data = data.loc[data["Day"] == date]
+        if day != None:
+            data = data.loc[data["Day"] == day]
 
         if year != None:
             data = data.loc[data["Year"] == year]
