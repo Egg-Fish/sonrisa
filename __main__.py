@@ -7,9 +7,7 @@ import sys
 def main(path):
 
     ChatData = formatting.ChatData(path)
-    x = processing.total_messages_by_sender(ChatData.data)
-    x.plot("bar")
-    plt.show()
+    print(ChatData.data)
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:

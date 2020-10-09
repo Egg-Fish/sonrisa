@@ -66,6 +66,7 @@ def message_valid(data):
         re.search(r'security code changed', message) == None and
         re.search(r'changed the subject', message) == None and
         re.search(r'changed the group description', message) == None and
+        re.search(r"changed this group's icon", message) == None and
         re.search(r'Messages and calls are end-to-end encrypted.', message) == None and
         re.search(r'created group', message) == None and
         re.search(r'added you', message) == None and
@@ -99,7 +100,7 @@ def strip_emoji(data):
 class ChatData():
     def __init__(self, path):
         path = path.replace("\\","/")
-        print(path)
+        
         f = open(path,encoding="utf-8-sig").readlines()
 
         data = []
@@ -107,6 +108,7 @@ class ChatData():
         for i in range(1,len(f)):
 
             line = f[i].rstrip()
+
             if re.search(r'^[0-9]+/[0-9]+/[0-9]+', line):
                 p = separate_categories(queue)
                 if message_valid(p):
@@ -115,6 +117,7 @@ class ChatData():
                         data.append(p)
                     
                 queue = line
+
             else:
                 queue = queue + " " + line
 
