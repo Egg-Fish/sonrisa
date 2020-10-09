@@ -73,6 +73,12 @@ def message_valid(data):
         re.search(r'^\d\d\d\d \d\d\d\d added [a-zA-Z0-9\w+()]+$', message) == None):
         # these are auto-generated messages by WhatsApp
         return True
+    elif re.search(r'created group', message) != None:
+        chat_name = message.rsplit("group")[-1].strip().strip("\"")
+        return chat_name
+    elif re.search(r'changed the subject', message) != None:
+        chat_name = message.rsplit("to")[-1].strip().strip("\"")
+        return chat_name
     else:
         return False
 
@@ -112,9 +118,12 @@ class ChatData():
             if re.search(r'^[0-9]+/[0-9]+/[0-9]+', line):
                 p = separate_categories(queue)
                 if message_valid(p):
-                    p = strip_emoji(p)
-                    if p[4].strip():
-                        data.append(p)
+                    if type(message_valid(p)) == str:
+                        self.chat_name = message_valid(p)
+                    else:
+                        p = strip_emoji(p)
+                        if p[4].strip():
+                            data.append(p)
                     
                 queue = line
 

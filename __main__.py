@@ -8,6 +8,7 @@ def main(path):
 
     ChatData = formatting.ChatData(path)
     print(ChatData.data)
+    print(ChatData.chat_name)
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
