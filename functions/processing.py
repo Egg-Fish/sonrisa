@@ -34,3 +34,12 @@ def total_messages_by_sender(df, sender = None):
         return df.loc[df["Sender"] == sender, "Sender"].value_counts()
 
     return df["Sender"].value_counts()
+
+def average_messages_per_day(df, sender = None):
+    if type(sender) == list:
+        return df.loc[np.isin(df["Sender"], sender), "Sender"].value_counts() / len(df["Day"].value_counts().index)
+    
+    elif type(sender) == str:
+        return df.loc[df["Sender"] == sender, "Sender"].value_counts() / len(df["Day"].value_counts().index)
+
+    return df["Sender"].value_counts() / len(df["Day"].value_counts().index)
