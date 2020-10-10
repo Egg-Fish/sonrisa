@@ -7,10 +7,12 @@ import sys
 def main(path):
 
     ChatData = formatting.ChatData(path)
-    p = ChatData.search(time ="1111")
+    d = ChatData.data
 
-    print(ChatData.search(time = "1111"))
-    print(processing.average_messages_per_day(p, sender="Amar"))
+    p = processing.average_messages_per_day(d, sender=["Amar","egg"])
+
+    p.plot("pie",title="Chat Name: {}".format(ChatData.chat_name))
+    plt.show()
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
